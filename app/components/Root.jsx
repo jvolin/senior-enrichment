@@ -15,14 +15,16 @@ export default class Root extends Component {
             <h1> Welcome to the Margaret Hamilton Interplanetary Academy of JavaScript</h1>
           </div>
         </div>
+
         <div className="row">
-          <div className="col-xs-6 col-md-4">
+          <div className="col">
             <h2>Visit A Campus!</h2>
           </div>
-          <div className="col-xs-6 col-md-4">
+          <div className="col">
             <h2>Meet our Students!</h2>
           </div>
         </div>
+
       </div>
     );
   }

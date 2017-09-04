@@ -5,7 +5,11 @@ const Campus = require('./campus')
 
 
 module.exports = db.define('student', {
-  name: {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+ lastName: {
     type: Sequelize.STRING,
     allowNull: false
   },
