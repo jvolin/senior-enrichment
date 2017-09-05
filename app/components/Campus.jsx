@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
+import store from '../store';
+import { Link } from 'react-router-dom';
+import { fetchCampuses } from '../reducers';
+import Campuses from './Campuses'
 import Students from './Students';
 
-export default function Campus (props) {
+export default class Campus extends Component {
+  constructor(props){
+    super(props)
 
-  const campus = this.props.campus
+    this.state = store.getState();
+  }
 
-  return (
-    <div className="campusContainer">
-        <h1>{campus.campusName}</h1>
-        <img src={campus.photo} />
-        <p>{campus.description}</p>
-    </div>
-  );
+  componentDidMount() {
+
+    store.dispatch(fetchCampuses());
+    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
+
+    const campuses = this.state.campuses
+    return (
+
+      <div className="row">
+      <h2>Visit Our Campuses</h2>
+      {campuses.map(campus => {
+        return (
+          <div key={campus.id} >
+            <Link to={`/campuses/${campus.id}`}>
+            <h3>{campus.campusName}</h3>
+            <img className="homepic" src={campus.photo} />
+            </Link>
+          </div>
+      )})}
+
+      </div>
+    );
+  }
 }
