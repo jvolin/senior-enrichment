@@ -6,11 +6,6 @@ const initialState = {
   students: []
 }
 
-const rootReducer = function(state = initialState, action) {
-  switch (action.type) {
-    default: return state
-  }
-};
 
 // action types
 const GET_CAMPUS = 'GET_CAMPUS';
@@ -64,21 +59,20 @@ export function fetchStudents() {
 
 // reducer
 
-export function reducer (state = initialState, action) {
-
+export default function rootReducer (state = initialState, action) {
   switch (action.type) {
 
-    case GET_CAMPUSES:
+    case GET_CAMPUSES:{
       return Object.assign({}, state, {campuses: state.campuses.concat(action.campuses)})
-
+    }
     case GET_CAMPUS:
     return Object.assign({}, state, {campus: action.campuses})
 
     case GET_STUDENTS:
-      return Object.assign({}, state, {campuses: state.campuses.concat(action.campuses)})
+      return Object.assign({}, state, {students: state.students.concat(action.students)})
 
     case GET_STUDENT:
-    return Object.assign({}, state, {campus: action.campuses})
+    return Object.assign({}, state, {student: action.student})
 
     default:
       return state;
@@ -86,4 +80,3 @@ export function reducer (state = initialState, action) {
 
 }
 
-export default rootReducer

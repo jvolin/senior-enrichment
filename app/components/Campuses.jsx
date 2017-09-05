@@ -27,14 +27,14 @@ export default class Campuses extends Component {
     const campuses = this.state.campuses
     return (
 
-      <div>
+      <div className="row">
       <h2>Visit Our Campuses</h2>
       {campuses.map(campus => {
         return (
           <div key={campus.id} >
             <Link to={`/campuses/${campus.id}`}>
             <h3>{campus.campusName}</h3>
-            <img src={campus.photo} />
+            <img className="homepic" src={campus.photo} />
             </Link>
           </div>
       )})}
