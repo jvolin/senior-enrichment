@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import Student from './Student'
-import store from '..reducers/store';
+import store from '../store';
 
 
-export default class AllStudent extends Component {
+export default class Students extends Component {
   constructor(props) {
     super(props)
     this.state = store.getState
   }
 
   render(){
-    return ()
+    return (
+      <div>
+        <h2> Meet our Students</h2>
+      </div>
+    )
   }
 }
+

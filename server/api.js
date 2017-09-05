@@ -13,7 +13,7 @@ const Student = require('../db/models/student');
 api.get('/hello', (req, res) => res.send({hello: 'world'}))
 
 
-// CAMPUS /////////////////////////////////
+// CAMPUSES /////////////////////////////////
 
 // get all campuses
 api.get('/campuses', (req, res, next) => {
@@ -23,14 +23,37 @@ api.get('/campuses', (req, res, next) => {
 })
 
 //get a campus by id
-
+api.get('/campuses/:id', (req, res, next) => {
+    Campus.findById(req.params.id)
+    .then(campus => res.json(campus))
+    .catch(next);
+})
 // add a campus
+api.post('/campuses/add', (req, res, next) => {
+    Campus.create(req.body)
+    .then( campus => res.json(campus))
+    .catch(next);
+})
 
 // edit a campus
+api.put('campuses/:id', (req, res, next) => {
+    Campus.findById(req.params.id)
+        .then(campus => campus.update(req.body))
+        .catch(next);
+})
 
 // delete a campus
+api.delete('campus/:id', (req, res, next) => {
+    Campus.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => res.status(204).end())
+        .catch(next);
+})
 
-// STUDENT /////////////////////////////////
+// STUDENTS /////////////////////////////////
 
 // get all students
 api.get('/students', (req, res, next) => {
@@ -41,8 +64,7 @@ api.get('/students', (req, res, next) => {
 
 // get a student by Id
 api.get('/students/:id', (req, res, next) => {
-    let studentId = req.params.id;
-    Student.findById(studentId)
+    Student.findById(req.params.id)
     .then(student => res.json(student))
     .catch(next);
 })
@@ -62,8 +84,21 @@ api.post('/students/add', (req, res, next) => {
 })
 
 // edit a student
+api.put('student/:id', (req, res, next) => {
+    Student.findById(req.params.id)
+        .then(student => student.update(req.body))
+        .catch(next);
+})
 
 // delete a student
-
+api.delete('student/:id', (req, res, next) => {
+    Student.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => res.status(204).end())
+        .catch(next);
+})
 
 module.exports = api
