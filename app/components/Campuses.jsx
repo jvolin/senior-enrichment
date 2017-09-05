@@ -28,7 +28,7 @@ export default class Campuses extends Component {
     return (
 
       <div>
-      <h2>Campuses</h2>
+      <h2>Visit Our Campuses</h2>
       {campuses.map(campus => {
         return (
           <div key={campus.id} >

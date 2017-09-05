@@ -22,7 +22,7 @@ export default class Students extends Component {
   render(){
     return (
       <div>
-        <h2> Meet our Students</h2>
+        <h2> Meet Our Students</h2>
       </div>
     )
   }
