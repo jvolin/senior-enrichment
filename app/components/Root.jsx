@@ -9,7 +9,6 @@ export default function Root () {
     <div className="container">
       <Header />
       <Main />
-      <Campuses />
     </div>
   );
 }

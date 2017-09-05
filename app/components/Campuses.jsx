@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Campus from './Campus'
 import store from '../store';
 import { Link } from 'react-router-dom';
-import { fetchCampuses } from '../reducers'
+import { fetchCampuses } from '../reducers';
 
 
 export default class Campuses extends Component {
@@ -23,22 +23,23 @@ export default class Campuses extends Component {
   }
 
   render() {
+
+    const campuses = this.state.campuses
     return (
+
       <div>
+      <h2>Campuses</h2>
+      {campuses.map(campus => {
+        return (
+          <div key={campus.id} >
+            <Link to={`/campuses/${campus.id}`}>
+            <h3>{campus.campusName}</h3>
+            <img src={campus.photo} />
+            </Link>
+          </div>
+      )})}
 
       </div>
     );
   }
 }
-
-//const campuses = this.state.campuses
-
-// {this.state.campuses.map(campus =>
-//           {
-//             return (
-//               <div key={campus.id}>
-//                 <Link to={`/campuses/${campus.id}`}>{campus.name} </Link>
-//               </div>
-//             )
-//           })
-//         }
