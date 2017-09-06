@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import store from '../store';
 import { fetchCampus, fetchStudents } from '../reducers';
 import { Link } from 'react-router-dom';
-import Campuses from './Campuses';
-import Students from './Students';
+
 
 export default class Campus extends Component {
   constructor(props){
@@ -29,7 +28,7 @@ export default class Campus extends Component {
     const campusStudents = this.state.students.filter(function(student){
       return student.campusId === selectedCampus.id
     });
-    console.log(selectedCampus, campusStudents)
+    console.log(campusStudents)
     return (
       <div>
         <div className="row">

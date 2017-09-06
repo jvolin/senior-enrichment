@@ -77,6 +77,17 @@ export function fetchStudents() {
   };
 }
 
+export function fetchStudent (id) {
+  return function thunk (dispatch) {
+    return axios.get(`/api/students/${id}`)
+      .then(res => res.data)
+      .then(student => {
+        const action = getStudent(student);
+        dispatch(action);
+      });
+  };
+}
+
 export function fetchCampusStudents (campusId) {
   return function thunk (dispatch) {
     return axios.get(`/api/students/${campusId}`)
