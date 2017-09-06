@@ -7,14 +7,13 @@ import { Link } from 'react-router-dom';
 export default class Student extends Component {
   constructor(props){
     super(props)
-
     this.state = store.getState();
   }
 
   componentDidMount() {
-    store.dispatch(fetchCampuses())
     const studentId = this.props.match.params.id
     store.dispatch(fetchStudent(studentId))
+    store.dispatch(fetchCampuses())
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
 }
 
@@ -37,7 +36,7 @@ export default class Student extends Component {
     console.log(studentCampus)
 
     return (
-      <div>
+
         <div className="row">
           <div className="col-md-8">
             <img className="homepic" src={student.photo} />
@@ -56,10 +55,9 @@ export default class Student extends Component {
                   <h4>{campus.campusName} </h4>
                   </Link>
                 </div>
-            )})}
+              )})}
           </div>
         </div>
-      </div>
     );
   }
 }

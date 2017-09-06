@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header';
 import Main from './Main';
-import Campuses from './Campuses';
 
 export default function Root () {
 

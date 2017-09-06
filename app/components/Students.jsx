@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import store from '../store';
 import { Link } from 'react-router-dom';
-import { fetchStudents } from '../reducers'
+import { fetchStudents } from '../reducers';
 
 
 export default class Students extends Component {
@@ -10,7 +10,6 @@ export default class Students extends Component {
     this.state = store.getState();
   }
   componentDidMount() {
-
     store.dispatch(fetchStudents());
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
   }
@@ -19,7 +18,7 @@ export default class Students extends Component {
     this.unsubscribe();
   }
 
-  render(){
+  render() {
     const students = this.state.students
     return (
       <div className="row">
@@ -34,7 +33,7 @@ export default class Students extends Component {
               <img className="homepic" src={student.photo} />
               </Link>
             </div>
-        )})}
+          )})}
       </div>
     )
   }
