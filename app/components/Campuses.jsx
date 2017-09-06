@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Campus from './Campus'
+import Campus from './Campus';
 import store from '../store';
 import { Link } from 'react-router-dom';
 import { fetchCampuses } from '../reducers';
@@ -23,21 +23,23 @@ export default class Campuses extends Component {
   }
 
   render() {
-
+    console.log(this.props)
     const campuses = this.state.campuses
     return (
 
       <div className="row">
-      <h2>Visit Our Campuses</h2>
-      {campuses.map(campus => {
-        return (
-          <div key={campus.id} >
-            <Link to={`/campuses/${campus.id}`}>
-            <h3>{campus.campusName}</h3>
-            <img className="homepic" src={campus.photo} />
-            </Link>
-          </div>
-      )})}
+        <div className="col-md-12">
+          <h2>Visit Our Campuses</h2>
+        </div>
+        {campuses.map(campus => {
+          return (
+            <div className="col-md-12" key={campus.id} >
+              <Link to={`/campuses/${campus.id}`}>
+              <h3>{campus.campusName}</h3>
+              <img className="homepic" src={campus.photo} />
+              </Link>
+            </div>
+        )})}
 
       </div>
     );

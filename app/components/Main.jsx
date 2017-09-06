@@ -14,7 +14,7 @@ export default function Main () {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/campuses" component={Campuses} />
-        <Route path="campuses/:id" component={Campus} />
+        <Route exact path="/Campuses/:id" component={Campus} />
         <Route exact path="/students" component={Students} />
         <Route exact path="/students/:id" component={Student} />
       </Switch>

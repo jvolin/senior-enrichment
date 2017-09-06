@@ -3,7 +3,10 @@ import axios from 'axios';
 
 const initialState = {
   campuses: [],
-  students: []
+  campus: [],
+  students: [],
+  student: [],
+  campusStudents: [],
 }
 
 
@@ -12,6 +15,7 @@ const GET_CAMPUS = 'GET_CAMPUS';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_STUDENT = 'GET_STUDENT';
 const GET_STUDENTS = 'GET_STUDENTS';
+const GET_CAMPUS_STUDENTS = 'GET_CAMPUS_STUDENTS';
 
 
 // action creators
@@ -34,6 +38,11 @@ export function getStudents (students) {
   return action;
 }
 
+export function getCampusStudents (campusStudents) {
+  const action = { type: GET_CAMPUS_STUDENTS, campusStudents };
+  return action;
+}
+
 // thunks
 export function fetchCampuses () {
   return function thunk (dispatch) {
@@ -41,6 +50,17 @@ export function fetchCampuses () {
       .then(res => res.data)
       .then(campuses => {
         const action = getCampuses(campuses);
+        dispatch(action);
+      });
+  };
+}
+
+export function fetchCampus (id) {
+  return function thunk (dispatch) {
+    return axios.get(`/api/campuses/${id}`)
+      .then(res => res.data)
+      .then(campus => {
+        const action = getCampus(campus);
         dispatch(action);
       });
   };
@@ -57,6 +77,17 @@ export function fetchStudents() {
   };
 }
 
+export function fetchCampusStudents (campusId) {
+  return function thunk (dispatch) {
+    return axios.get(`/api/students/${campusId}`)
+      .then(res => res.data)
+      .then(campusStudents => {
+        const action = getCampusStudents(campusStudents);
+        dispatch(action);
+      });
+  };
+}
+
 // reducer
 
 export default function rootReducer (state = initialState, action) {
@@ -66,13 +97,16 @@ export default function rootReducer (state = initialState, action) {
       return Object.assign({}, state, {campuses: state.campuses.concat(action.campuses)})
     }
     case GET_CAMPUS:
-    return Object.assign({}, state, {campus: action.campuses})
+    return Object.assign({}, state, {campus: action.campus})
 
     case GET_STUDENTS:
       return Object.assign({}, state, {students: state.students.concat(action.students)})
 
     case GET_STUDENT:
     return Object.assign({}, state, {student: action.student})
+
+    case GET_CAMPUS_STUDENTS:
+      return Object.assign({}, state, {campusStudents: state.campusStudents.concat(action.campusStudents)})
 
     default:
       return state;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import store from '../store';
+import { fetchCampus, fetchStudents } from '../reducers';
 import { Link } from 'react-router-dom';
-import { fetchCampuses } from '../reducers';
-import Campuses from './Campuses'
+import Campuses from './Campuses';
 import Students from './Students';
 
 export default class Campus extends Component {
@@ -13,10 +13,11 @@ export default class Campus extends Component {
   }
 
   componentDidMount() {
-
-    store.dispatch(fetchCampuses());
+    const id = this.props.match.params.id
+    store.dispatch(fetchCampus(id))
+    store.dispatch(fetchStudents())
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-  }
+}
 
   componentWillUnmount() {
     this.unsubscribe();
@@ -24,22 +25,40 @@ export default class Campus extends Component {
 
   render() {
 
-    const campuses = this.state.campuses
+    const selectedCampus = this.state.campus;
+    const campusStudents = this.state.students.filter(function(student){
+      return student.campusId === selectedCampus.id
+    });
+    console.log(selectedCampus, campusStudents)
     return (
-
-      <div className="row">
-      <h2>Visit Our Campuses</h2>
-      {campuses.map(campus => {
-        return (
-          <div key={campus.id} >
-            <Link to={`/campuses/${campus.id}`}>
-            <h3>{campus.campusName}</h3>
-            <img className="homepic" src={campus.photo} />
-            </Link>
+      <div>
+        <div className="row">
+          <div className="col-md-12">
+            <h2> Welcome to the {selectedCampus.campusName}</h2>
           </div>
-      )})}
-
+          <div className="col-md-12">
+            <p>{selectedCampus.description}</p>
+          </div>
+          <div className="col-md-12">
+            <img className="homepic" src={selectedCampus.photo} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <h2> Meet {selectedCampus.campusName} Students</h2>
+          </div>
+          {campusStudents.map(student => {
+              return (
+                <div className="col-md-4" key={student.id} >
+                  <Link to={`/students/${student.id}`}>
+                  <h3>{student.firstName} {student.lastName}</h3>
+                  <img className="homepic" src={student.photo} />
+                  </Link>
+                </div>
+            )})}
+        </div>
       </div>
     );
   }
 }
+
